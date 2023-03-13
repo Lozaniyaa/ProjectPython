@@ -1,4 +1,39 @@
-num = list(range(1, 50))
-print(num)
+from dataclasses import dataclass
 
-# print
+
+@dataclass
+class User:
+    user_id: int  # ID пользователя
+    name: str  # Имя пользователя
+    age: int  # Возраст пользователя
+    email: str  # email/mail пользователя
+
+
+@dataclass
+class DatabaseConfig:
+    db_host: str  # URL
+    db_user: str  # UserName
+    db_password: str  # Password
+    database: str  # Название базы данных
+
+
+@dataclass
+class TgBot:
+    token: str  # Токен для доступа к телеграмм-боту
+    admin_ids: list[int]  # список id администраторов бота
+
+
+@dataclass
+class Config:
+    tg_bot: TgBot
+    db: DatabaseConfig
+
+
+config = Config(tg_bot=TgBot(token=BOT_TOKEN,
+                             admin_ids=ADMIN_IDS),
+                db=DatabaseConfig(db_host=DB_HOST,
+                                  db_user=DB_USER,
+                                  db_password=DB_PASSWORD,
+                                  database=DATABASE))
+token = config.tg_bot.token
+db_passw = config.db.db_password
